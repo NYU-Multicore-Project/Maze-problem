@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <omp.h>
 
 
-bool solveMaze(int maze[][COLS], int x, int y, int ROWS, int COLS) {
+bool solveMaze(int maze[][COLS] ,int x, int y, int ROWS, int COLS) {
     if (x == ROWS - 1 && y == COLS - 1) {
         maze[x][y] = 2;
         return true;
@@ -16,28 +17,35 @@ bool solveMaze(int maze[][COLS], int x, int y, int ROWS, int COLS) {
         int dx[] = {-1, 1, 0, 0};
         int dy[] = {0, 0, -1, 1};
 
+        bool found = false;
+        #pragma omp parallel for
         for (int i = 0; i < 4; ++i) {
             int newX = x + dx[i];
             int newY = y + dy[i];
 
             if (newX >= 0 && newX < ROWS && newY >= 0 && newY < COLS) {
-                if (solveMaze(maze, newX, newY, ROWS, COLS)) {
-                    return true;
+                #pragma omp critical
+                {
+                    if (!found) {
+                        found = solveMaze(maze, newX, newY, ROWS, COLS);
+                    }
                 }
             }
         }
 
-        maze[x][y] = 0;
+        if (found) {
+            return true;
+        } else {
+            maze[x][y] = 0;
+        }
     }
 
     return false;
 }
 
 
-
 /*
-
-clang dfs.c -o dfs
+clang -I/usr/local/Cellar/libomp/16.0.1/include -L/usr/local/Cellar/libomp/16.0.1/lib -Xpreprocessor -fopenmp -lomp maze-solver.c -o maze_solver
 */
 
 int main(int argc, char** argv) {

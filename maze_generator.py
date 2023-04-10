@@ -1,46 +1,50 @@
 import random
+import numpy as np
 
-def is_valid(x, y, maze_size):
-    return 0 <= x < maze_size and 0 <= y < maze_size
 
-def generate_maze(maze, x, y):
-    directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-    random.shuffle(directions)
+def generate_maze(rows, cols):
+    maze = np.ones((rows, cols), dtype=np.int8)
+    stack = []
 
-    for dx, dy in directions:
-        nx, ny = x + 2 * dx, y + 2 * dy
+    # Start from the upper-left corner
+    start_x, start_y = 0, 0
+    maze[start_x][start_y] = 0
+    stack.append((start_x, start_y))
 
-        if is_valid(nx, ny, len(maze)) and maze[nx][ny] == 1:
-            maze[nx - dx][ny - dy] = 0
+    # List of possible moves (up, down, left, right)
+    moves = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+    while stack:
+        x, y = stack[-1]
+        possible_moves = []
+
+        for dx, dy in moves:
+            nx, ny = x + 2 * dx, y + 2 * dy
+
+            if nx >= 0 and nx < rows and ny >= 0 and ny < cols and maze[nx][ny] == 1:
+                possible_moves.append((dx, dy))
+
+        if possible_moves:
+            dx, dy = random.choice(possible_moves)
+            nx, ny = x + 2 * dx, y + 2 * dy
+            maze[x + dx][y + dy] = 0
             maze[nx][ny] = 0
-            generate_maze(maze, nx, ny)
+            stack.append((nx, ny))
+        else:
+            stack.pop()
 
-def print_maze(maze):
-    for row in maze:
-        print(' '.join(map(str, row)))
-
-def create_maze(maze_size):
-    maze = [[1] * maze_size for _ in range(maze_size)]
-
-    maze[1][1] = 0
-    generate_maze(maze, 1, 1)
+    # Set the lower-right corner as the end point
+    maze[rows - 1][cols - 1] = 0
 
     return maze
 
 def write_maze_to_file(maze, file_name):
-    with open(file_name, 'w') as f:
+    with open(file_name, 'w') as file:
         for row in maze:
-            f.write(' '.join(map(str, row)) + '\n')
+            row_str = ' '.join(str(cell) for cell in row)
+            file.write(row_str + '\n')
 
-maze_size = int(input("Enter the size of the maze (odd number): "))
-file_name = input("Enter the file name: ")
 
-# "/Users/hmac/Desktop/Maze-problem/maze/maze10/maze10_1.txt"
 
-if maze_size % 2 == 0:
-    print("Please enter an odd number.")
-else:
-    maze = create_maze(maze_size)
-    write_maze_to_file(maze, file_name)
-
-    print_maze(maze)
+maze = generate_maze(1001, 1001)
+write_maze_to_file(maze, '/Users/hmac/Desktop/Maze-problem/maze/maze1000/maze1.txt')
