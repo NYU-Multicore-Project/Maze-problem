@@ -2,37 +2,43 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+// Maze size
+#define ROWS 1001
+#define COLS 1001
 
-bool solveMaze(int maze[][COLS], int x, int y, int ROWS, int COLS) {
-    if (x == ROWS - 1 && y == COLS - 1) {
-        maze[x][y] = 2;
+bool is_valid(int **maze, int row, int col) {
+    if (row < 0 || row >= ROWS || col < 0 || col >= COLS) {
+        return false;
+    }
+    if (maze[row][col] == 1 || maze[row][col] == 2) {
+        return false;
+    }
+    return true;
+}
+
+bool solveMaze(int **maze, int row, int col) {
+    if (row == ROWS - 1 && col == COLS - 1) {
+        maze[row][col] = 2;
         return true;
     }
 
-    if (maze[x][y] == 0) {
-        maze[x][y] = 2;
-
-        // Move in four directions (up, down, left, right)
-        int dx[] = {-1, 1, 0, 0};
-        int dy[] = {0, 0, -1, 1};
-
-        for (int i = 0; i < 4; ++i) {
-            int newX = x + dx[i];
-            int newY = y + dy[i];
-
-            if (newX >= 0 && newX < ROWS && newY >= 0 && newY < COLS) {
-                if (solveMaze(maze, newX, newY, ROWS, COLS)) {
-                    return true;
-                }
-            }
-        }
-
-        maze[x][y] = 0;
+    if (!is_valid(maze, row, col)) {
+        return false;
     }
 
+    maze[row][col] = 2;
+
+    int rows[] = {-1, 0, 1, 0};
+    int cols[] = {0, 1, 0, -1};
+    for (int i = 0; i < 4; i++) {
+        if (solveMaze(maze, row + rows[i], col + cols[i])) {
+            return true;
+        }
+    }
+
+    maze[row][col] = 0;
     return false;
 }
-
 
 
 /*
@@ -41,16 +47,20 @@ clang dfs.c -o dfs
 */
 
 int main(int argc, char** argv) {
-    if (argc < 3) {
-        printf("Usage: %s <maze_file> <size_count>\n", argv[0]);
+    if (argc < 2) {
+        printf("Usage: %s <maze_file>\n", argv[0]);
         return 1;
     }
 
-    int ROWS = atoi(argv[2]);
-    int COLS = atoi(argv[2]);
+    // int ROWS = atoi(argv[2]);
+    // int COLS = atoi(argv[2]);
     const char *file_name = argv[1];
 
-    int maze[ROWS][COLS];
+    int **maze = malloc(ROWS * sizeof(int *));
+    for (int i = 0; i < ROWS; i++) {
+        maze[i] = malloc(COLS * sizeof(int));
+    }
+
     FILE *file = fopen(file_name, "r");
 
     if (file == NULL) {
@@ -76,7 +86,7 @@ int main(int argc, char** argv) {
 
     printf("\n");
 
-    if (solveMaze(maze, 0, 0, ROWS, COLS)) {
+    if (solveMaze(maze, 0, 0)) {
         printf("Solution found:\n");
         for (int i = 0; i < ROWS; ++i) {
             for (int j = 0; j < COLS; ++j) {
@@ -87,6 +97,12 @@ int main(int argc, char** argv) {
     } else {
         printf("No solution found.\n");
     }
+
+
+    for (int i = 0; i < ROWS; i++) {
+        free(maze[i]);
+    }
+    free(maze);
 
     return 0;
 }

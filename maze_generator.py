@@ -46,5 +46,5 @@ def write_maze_to_file(maze, file_name):
 
 
 
-maze = generate_maze(1001, 1001)
-write_maze_to_file(maze, '/Users/hmac/Desktop/Maze-problem/maze/maze1000/maze1.txt')
+maze = generate_maze(11, 11)
+write_maze_to_file(maze, '/Users/hmac/Desktop/Maze-problem/maze/maze10/maze2.txt')
