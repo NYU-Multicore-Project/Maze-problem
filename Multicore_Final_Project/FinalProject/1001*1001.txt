@@ -1,0 +1,370 @@
+lab1_jl12220  project
+[jl12220@crunchy1 multicore]$ cd project/
+[jl12220@crunchy1 project]$ ls
+Multicore_project
+[jl12220@crunchy1 project]$ cd Multicore_project/
+[jl12220@crunchy1 Multicore_project]$ ls
+1001_maze_double_dfs.cpp   dfs        maze2000
+1001_maze_nsingle_dfs.cpp  dfs1       maze3000
+101_maze_double_dfs.cpp    dfs2       maze4000
+101_maze_nsingle_dfs.cpp   dfs.cpp    maze50
+11_maze_double_dfs.cpp     maze10     maze500
+11_maze_nsingle_dfs.cpp    maze100    maze5000
+1.c                        maze1000   maze_single_dfs.c
+501_maze_double_dfs.cpp    maze10000  random_double_dfs.cpp
+501_maze_nsingle_dfs.cpp   maze1500
+a-star.cpp                 maze200
+[jl12220@crunchy1 Multicore_project]$ module load gcc-9.2
+[jl12220@crunchy1 Multicore_project]$ gcc --version
+gcc (GCC) 9.2.0
+Copyright © 2019 Free Software Foundation, Inc.
+本程序是自由软件；请参看源代码的版权声明。本软件没有任何担保；
+包括没有适销性和某一专用目的下的适用性担保。
+[jl12220@crunchy1 Multicore_project]$ ulimit -s 512000
+[jl12220@crunchy1 Multicore_project]$ clear
+[jl12220@crunchy1 Multicore_project]$ ls
+1001_maze_double_dfs.cpp   dfs        maze2000
+1001_maze_nsingle_dfs.cpp  dfs1       maze3000
+101_maze_double_dfs.cpp    dfs2       maze4000
+101_maze_nsingle_dfs.cpp   dfs.cpp    maze50
+11_maze_double_dfs.cpp     maze10     maze500
+11_maze_nsingle_dfs.cpp    maze100    maze5000
+1.c                        maze1000   maze_single_dfs.c
+501_maze_double_dfs.cpp    maze10000  random_double_dfs.cpp
+501_maze_nsingle_dfs.cpp   maze1500
+a-star.cpp                 maze200
+[jl12220@crunchy1 Multicore_project]$ g++ -fopenmp 1001_maze_double_dfs.cpp -o 1001_ddfs1
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs1 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.209s
+user	0m0.308s
+sys	0m0.094s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs1 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.201s
+user	0m0.308s
+sys	0m0.081s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs1 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.209s
+user	0m0.377s
+sys	0m0.029s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs1 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.195s
+user	0m0.346s
+sys	0m0.043s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs1 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.198s
+user	0m0.319s
+sys	0m0.089s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs1 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.197s
+user	0m0.354s
+sys	0m0.036s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs1 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.186s
+user	0m0.293s
+sys	0m0.089s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs1 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.198s
+user	0m0.375s
+sys	0m0.022s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs1 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.198s
+user	0m0.359s
+sys	0m0.034s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs1 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.198s
+user	0m0.365s
+sys	0m0.030s
+[jl12220@crunchy1 Multicore_project]$ g++ 1001_maze_nsingle_dfs.cpp -o 1001_ddfs2
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs2 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.271s
+user	0m0.241s
+sys	0m0.024s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs2 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.259s
+user	0m0.231s
+sys	0m0.026s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs2 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.263s
+user	0m0.237s
+sys	0m0.023s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs2 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.260s
+user	0m0.239s
+sys	0m0.018s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs2 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.266s
+user	0m0.240s
+sys	0m0.024s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs2 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.262s
+user	0m0.242s
+sys	0m0.018s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs2 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.263s
+user	0m0.232s
+sys	0m0.029s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs2 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.263s
+user	0m0.236s
+sys	0m0.025s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs2 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.267s
+user	0m0.236s
+sys	0m0.028s
+[jl12220@crunchy1 Multicore_project]$ time ./1001_ddfs2 maze1000/maze1
+start from 3
+Path found!
+
+real	0m0.263s
+user	0m0.242s
+sys	0m0.019s
+[jl12220@crunchy1 Multicore_project]$ ls
+1001_ddfs1                 501_maze_nsingle_dfs.cpp  maze1500
+1001_ddfs2                 a-star.cpp                maze200
+1001_maze_double_dfs.cpp   dfs                       maze2000
+1001_maze_nsingle_dfs.cpp  dfs1                      maze3000
+101_maze_double_dfs.cpp    dfs2                      maze4000
+101_maze_nsingle_dfs.cpp   dfs.cpp                   maze50
+11_maze_double_dfs.cpp     maze10                    maze500
+11_maze_nsingle_dfs.cpp    maze100                   maze5000
+1.c                        maze1000                  maze_single_dfs.c
+501_maze_double_dfs.cpp    maze10000                 random_double_dfs.cpp
+[jl12220@crunchy1 Multicore_project]$ g++ -fopenmp maze_single_dfs.c -o maze
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 1
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.352s
+user	0m0.271s
+sys	0m0.076s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 1
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.352s
+user	0m0.273s
+sys	0m0.077s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 1
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.350s
+user	0m0.265s
+sys	0m0.083s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 1
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.353s
+user	0m0.277s
+sys	0m0.073s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 1
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.359s
+user	0m0.276s
+sys	0m0.080s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 1
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.352s
+user	0m0.271s
+sys	0m0.077s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 1
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.349s
+user	0m0.280s
+sys	0m0.067s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 1
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.348s
+user	0m0.272s
+sys	0m0.073s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 1
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.346s
+user	0m0.269s
+sys	0m0.075s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 1
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.354s
+user	0m0.271s
+sys	0m0.081s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 4
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.304s
+user	0m0.281s
+sys	0m0.024s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 4
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.298s
+user	0m0.266s
+sys	0m0.033s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 4
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.290s
+user	0m0.264s
+sys	0m0.027s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 4
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.298s
+user	0m0.273s
+sys	0m0.025s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 4
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.293s
+user	0m0.270s
+sys	0m0.025s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 4
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.294s
+user	0m0.269s
+sys	0m0.026s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 4
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.306s
+user	0m0.278s
+sys	0m0.029s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 4
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.296s
+user	0m0.264s
+sys	0m0.032s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 4
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.304s
+user	0m0.274s
+sys	0m0.032s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 4
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.304s
+user	0m0.276s
+sys	0m0.030s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 8
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.293s
+user	0m0.267s
+sys	0m0.035s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 8
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.297s
+user	0m0.284s
+sys	0m0.021s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 8
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.296s
+user	0m0.276s
+sys	0m0.027s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 8
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.301s
+user	0m0.281s
+sys	0m0.028s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 8
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.293s
+user	0m0.268s
+sys	0m0.033s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 8
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.302s
+user	0m0.283s
+sys	0m0.026s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 8
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.306s
+user	0m0.286s
+sys	0m0.027s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 8
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.299s
+user	0m0.273s
+sys	0m0.034s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 8
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.302s
+user	0m0.276s
+sys	0m0.031s
+[jl12220@crunchy1 Multicore_project]$ time ./maze 1001 maze1000/maze1 8
+Found a path from (0,0) to (1000,1000)
+
+real	0m0.302s
+user	0m0.271s
+sys	0m0.039s
+[jl12220@crunchy1 Multicore_project]$
